@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core.logger import setup_logging
 from core.config import settings
+from contextlib import asynccontextmanager
 
 # Import API routers
 from api import (
@@ -17,14 +18,32 @@ from api import (
     actions,
     integrations,
     enricher,
-    health
+    health,
+    tasks
 )
+
+# Import task scheduler
+from tasks.scheduler import scheduler
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Lifespan context manager for startup and shutdown events
+    """
+    # Startup: Start the task scheduler
+    scheduler.start()
+    yield
+    # Shutdown: Stop the task scheduler
+    scheduler.shutdown()
+
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AI Recruitment Platform API",
     description="Backend API for AI-driven recruitment automation",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # Setup logging
@@ -48,6 +67,7 @@ app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytic
 app.include_router(actions.router, prefix="/api/v1/actions", tags=["Actions"])
 app.include_router(integrations.router, prefix="/api/v1/integrations", tags=["Integrations"])
 app.include_router(enricher.router, prefix="/api/v1/enricher", tags=["Enricher"])
+app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["Scheduled Tasks"])
 
 
 @app.get("/")
