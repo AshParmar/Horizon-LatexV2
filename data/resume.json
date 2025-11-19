@@ -1,0 +1,33 @@
+[
+    {
+        "id": "C1",
+        "name": "Amit Verma",
+        "skills": [
+            "Python",
+            "Django",
+            "APIs",
+            "Docker"
+        ],
+        "experience": 3
+    },
+    {
+        "id": "C2",
+        "name": "Riya Sharma",
+        "skills": [
+            "Java",
+            "Spring",
+            "Teamwork"
+        ],
+        "experience": 2
+    },
+    {
+        "id": "C3",
+        "name": "Mohit Gupta",
+        "skills": [
+            "ML",
+            "AI",
+            "Python"
+        ],
+        "experience": 1
+    }
+]
