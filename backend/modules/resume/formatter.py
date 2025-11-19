@@ -1,105 +1,150 @@
 """
 Resume Formatter Module
 
-TODO: Format resume data for display and export
-Contributors: Create templates for different output formats
+Person 2: Resume Formatting - IMPLEMENTED
+Finalize candidate JSON with vector_text for embeddings
+Takes enriched candidate JSON and prepares it for Person 3 (Scoring Engine)
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, List
+import logging
+from datetime import datetime
+
+logger = logging.getLogger(__name__)
 
 
 class ResumeFormatter:
     """
     Resume Data Formatter
     
-    TODO: Implement formatting for various outputs
+    Final step in Person 2's pipeline:
+    1. Build vector_text from candidate data (for embeddings)
+    2. Finalize candidate JSON
+    3. Return standardized format ready for scoring
     """
     
     def __init__(self):
         """
         Initialize Resume Formatter
-        
-        TODO: Load templates
         """
-        pass
+        logger.info("ResumeFormatter initialized")
     
     
-    def format_for_display(self, resume_data: Dict[str, Any]) -> Dict[str, Any]:
+    def finalize_candidate(self, enriched_json: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Format resume data for UI display
+        Finalize candidate JSON with vector_text
         
-        TODO: Implement display formatting
-        - Structure data for frontend
-        - Format dates
-        - Organize sections
-        - Add display metadata
+        This is the final step before passing to Person 3 (Scoring Engine)
         
         Args:
-            resume_data: Raw resume data
+            enriched_json: Enriched candidate JSON from enricher
             
         Returns:
-            Formatted data for display
+            Finalized candidate JSON with vector_text populated
         """
-        raise NotImplementedError("Implement display formatting")
-    
-    
-    def format_for_export(
-        self,
-        resume_data: Dict[str, Any],
-        format: str = "pdf"
-    ) -> bytes:
-        """
-        Format resume for export
+        logger.info(f"Finalizing candidate: {enriched_json.get('name', 'Unknown')}")
         
-        TODO: Implement export formatting
-        - PDF generation
-        - DOCX generation
-        - HTML generation
+        finalized = enriched_json.copy()
+        
+        # Build vector text for embeddings
+        vector_text = self.build_vector_text(finalized)
+        finalized['vector_text'] = vector_text
+        
+        # Add final metadata
+        if 'metadata' not in finalized:
+            finalized['metadata'] = {}
+        
+        finalized['metadata']['finalized_at'] = datetime.utcnow().isoformat()
+        finalized['metadata']['ready_for_scoring'] = True
+        
+        logger.info(f"Candidate finalized. Vector text length: {len(vector_text)} characters")
+        return finalized
+    
+    
+    def build_vector_text(self, candidate_json: Dict[str, Any]) -> str:
+        """
+        Build comprehensive text for vector embeddings
+        
+        Combines all important information into a single text block
+        that will be used for semantic search and similarity matching.
+        
+        Format:
+        - Name
+        - Skills (original + enriched)
+        - Experience details
+        - Education details
+        - Summary
         
         Args:
-            resume_data: Resume data
-            format: Output format (pdf, docx, html)
+            candidate_json: Candidate data
             
         Returns:
-            Formatted file as bytes
+            Combined text for embeddings
         """
-        raise NotImplementedError("Implement export formatting")
-    
-    
-    def create_summary(self, resume_data: Dict[str, Any]) -> str:
-        """
-        Create a brief summary of resume
+        logger.info("Building vector text for embeddings...")
         
-        TODO: Implement summary generation
-        - Use LLM to generate summary
-        - Highlight key points
-        - Keep concise
+        parts = []
         
-        Args:
-            resume_data: Resume data
+        # Name
+        name = candidate_json.get('name', '')
+        if name:
+            parts.append(f"Name: {name}")
+        
+        # Summary
+        summary = candidate_json.get('summary', '')
+        if summary:
+            parts.append(f"Summary: {summary}")
+        
+        # Skills (original + enriched)
+        all_skills = []
+        all_skills.extend(candidate_json.get('skills', []))
+        all_skills.extend(candidate_json.get('enriched_skills', []))
+        all_skills = list(set(all_skills))  # Deduplicate
+        
+        if all_skills:
+            parts.append(f"Skills: {', '.join(all_skills)}")
+        
+        # Experience
+        experiences = candidate_json.get('experience', [])
+        if experiences:
+            exp_texts = []
+            for exp in experiences:
+                title = exp.get('title', '')
+                company = exp.get('company', '')
+                duration = exp.get('duration', '')
+                
+                exp_str = f"{title}"
+                if company:
+                    exp_str += f" at {company}"
+                if duration:
+                    exp_str += f" ({duration})"
+                
+                exp_texts.append(exp_str)
             
-        Returns:
-            Resume summary text
-        """
-        raise NotImplementedError("Implement summary generation")
-    
-    
-    def format_for_comparison(
-        self,
-        resumes: list[Dict[str, Any]]
-    ) -> Dict[str, Any]:
-        """
-        Format multiple resumes for side-by-side comparison
+            parts.append(f"Experience: {'; '.join(exp_texts)}")
         
-        TODO: Implement comparison formatting
-        - Align similar fields
-        - Highlight differences
-        - Show relative scores
-        
-        Args:
-            resumes: List of resume data
+        # Education
+        education = candidate_json.get('education', [])
+        if education:
+            edu_texts = []
+            for edu in education:
+                degree = edu.get('degree', '')
+                institution = edu.get('institution', '')
+                year = edu.get('year', '')
+                
+                edu_str = degree
+                if institution:
+                    edu_str += f" from {institution}"
+                if year:
+                    edu_str += f" ({year})"
+                
+                edu_texts.append(edu_str)
             
-        Returns:
-            Formatted comparison data
-        """
-        raise NotImplementedError("Implement comparison formatting")
+            parts.append(f"Education: {'; '.join(edu_texts)}")
+        
+        # Combine all parts
+        vector_text = ". ".join(parts)
+        
+        logger.info(f"Built vector text with {len(parts)} components")
+        return vector_text
+

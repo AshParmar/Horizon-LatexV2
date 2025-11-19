@@ -1,207 +1,63 @@
 """
-Google Sheets Integration Module
-
-TODO: Implement Google Sheets API integration using Composio
-Contributors: Add candidate data export to spreadsheets
+Google Sheets Integration - Person 4
 """
+from typing import List, Dict, Any
+import logging
+from composio import Composio
+from core.config import settings
 
-from typing import List, Dict, Any, Optional
-
+logger = logging.getLogger(__name__)
 
 class SheetsIntegration:
-    """
-    Google Sheets Integration using Composio
-    
-    TODO: Implement Sheets operations
-    """
-    
     def __init__(self, composio_client=None):
-        """
-        Initialize Sheets Integration
-        
-        TODO: Setup Composio client
-        
-        Args:
-            composio_client: Composio client instance
-        """
-        self.composio = composio_client
+        self.composio = composio_client or Composio(api_key=settings.COMPOSIO_API_KEY)
     
+    def push_candidate_to_sheet(self, entity_id: str, spreadsheet_id: str,
+                               candidate_data: Dict[str, Any], sheet_name: str = "Candidates"):
+        try:
+            values = [[
+                candidate_data.get('name', ''),
+                candidate_data.get('email', ''),
+                candidate_data.get('phone', ''),
+                ', '.join(candidate_data.get('skills', [])[:10]),
+                candidate_data.get('experience_years', 0),
+                candidate_data.get('status', 'New')
+            ]]
+            result = self.composio.tools.execute(
+                slug="GOOGLESHEETS_SPREADSHEETS_VALUES_APPEND",
+                arguments={"spreadsheet_id": spreadsheet_id, "range": f"{sheet_name}!A:F",
+                          "values": values, "value_input_option": "RAW"},
+                user_id=entity_id, dangerously_skip_version_check=True)
+            return {'success': result.get('successful')}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
     
-    def create_candidate_sheet(
-        self,
-        jd_id: str,
-        jd_title: str,
-        user_id: str = None
-    ) -> Dict[str, Any]:
-        """
-        Create a new spreadsheet for candidates
-        
-        TODO: Implement sheet creation
-        - Create new spreadsheet
-        - Setup headers
-        - Format columns
-        - Share with appropriate users
-        
-        Use Composio action: GOOGLESHEETS_CREATE_SPREADSHEET
-        
-        Args:
-            jd_id: Job description ID
-            jd_title: Job title
-            user_id: Composio user ID
-            
-        Returns:
-            Spreadsheet details with URL
-        """
-        raise NotImplementedError("Implement sheet creation using Composio")
+    def update_status(self, entity_id: str, spreadsheet_id: str, row: int,
+                     status: str, sheet_name: str = "Candidates"):
+        try:
+            result = self.composio.tools.execute(
+                slug="GOOGLESHEETS_UPDATE_SPREADSHEET_PROPERTIES",
+                arguments={"spreadsheet_id": spreadsheet_id,
+                          "range": f"{sheet_name}!F{row}", "values": [[status]]},
+                user_id=entity_id, dangerously_skip_version_check=True)
+            return {'success': result.get('successful')}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
     
+    def get_all_candidates(self, entity_id: str, spreadsheet_id: str,
+                          sheet_name: str = "Candidates"):
+        try:
+            result = self.composio.tools.execute(
+                slug="GOOGLESHEETS_BATCH_GET",
+                arguments={"spreadsheet_id": spreadsheet_id, "ranges": [f"{sheet_name}!A:F"]},
+                user_id=entity_id, dangerously_skip_version_check=True)
+            if result.get('successful'):
+                return result.get('data', {}).get('valueRanges', [{}])[0].get('values', [])
+            return []
+        except:
+            return []
     
-    def export_candidates(
-        self,
-        jd_id: str,
-        candidates: List[Dict[str, Any]],
-        spreadsheet_id: Optional[str] = None,
-        user_id: str = None
-    ) -> Dict[str, Any]:
-        """
-        Export candidates to Google Sheets
-        
-        TODO: Implement candidate export
-        - Format candidate data
-        - Write to spreadsheet
-        - Apply formatting (colors for scores, etc.)
-        - Add formulas/charts
-        
-        Use Composio actions:
-        - GOOGLESHEETS_BATCH_UPDATE
-        - GOOGLESHEETS_APPEND_VALUES
-        
-        Columns to include:
-        - Name
-        - Email
-        - Phone
-        - Final Score
-        - LLM Score
-        - Keyword Score
-        - Status
-        - Stage
-        - Applied Date
-        - Resume Link
-        
-        Args:
-            jd_id: Job description ID
-            candidates: List of candidate data
-            spreadsheet_id: Existing spreadsheet ID (creates new if None)
-            user_id: Composio user ID
-            
-        Returns:
-            Export status and spreadsheet URL
-        """
-        raise NotImplementedError("Implement candidate export using Composio")
-    
-    
-    def update_candidate_status(
-        self,
-        spreadsheet_id: str,
-        candidate_id: str,
-        status: str,
-        user_id: str = None
-    ) -> Dict[str, Any]:
-        """
-        Update candidate status in sheet
-        
-        TODO: Implement status update
-        - Find candidate row
-        - Update status column
-        - Update timestamp
-        
-        Use Composio action: GOOGLESHEETS_UPDATE_VALUES
-        
-        Args:
-            spreadsheet_id: Spreadsheet ID
-            candidate_id: Candidate ID
-            status: New status
-            user_id: Composio user ID
-            
-        Returns:
-            Update status
-        """
-        raise NotImplementedError("Implement status update using Composio")
-    
-    
-    def get_spreadsheet_data(
-        self,
-        spreadsheet_id: str,
-        range: str = "A1:Z1000",
-        user_id: str = None
-    ) -> List[List[Any]]:
-        """
-        Read data from spreadsheet
-        
-        TODO: Implement data reading
-        - Read specified range
-        - Parse data
-        
-        Use Composio action: GOOGLESHEETS_GET_VALUES
-        
-        Args:
-            spreadsheet_id: Spreadsheet ID
-            range: Cell range to read
-            user_id: Composio user ID
-            
-        Returns:
-            Spreadsheet data as 2D array
-        """
-        raise NotImplementedError("Implement data reading using Composio")
-    
-    
-    def format_score_column(
-        self,
-        spreadsheet_id: str,
-        score_column: str = "D",
-        user_id: str = None
-    ) -> Dict[str, Any]:
-        """
-        Apply conditional formatting to score column
-        
-        TODO: Implement conditional formatting
-        - Green for high scores (>0.7)
-        - Yellow for medium scores (0.5-0.7)
-        - Red for low scores (<0.5)
-        
-        Use Composio action: GOOGLESHEETS_BATCH_UPDATE
-        
-        Args:
-            spreadsheet_id: Spreadsheet ID
-            score_column: Column letter for scores
-            user_id: Composio user ID
-            
-        Returns:
-            Formatting status
-        """
-        raise NotImplementedError("Implement conditional formatting using Composio")
-    
-    
-    def add_analytics_sheet(
-        self,
-        spreadsheet_id: str,
-        jd_id: str,
-        user_id: str = None
-    ) -> Dict[str, Any]:
-        """
-        Add analytics/dashboard sheet
-        
-        TODO: Implement analytics sheet
-        - Create new sheet tab
-        - Add charts (score distribution, pipeline funnel)
-        - Add summary statistics
-        - Link to candidate data
-        
-        Args:
-            spreadsheet_id: Spreadsheet ID
-            jd_id: Job description ID
-            user_id: Composio user ID
-            
-        Returns:
-            Analytics sheet details
-        """
-        raise NotImplementedError("Implement analytics sheet using Composio")
+    def get_selected_candidates(self, entity_id: str, spreadsheet_id: str,
+                               status: str = "Selected", sheet_name: str = "Candidates"):
+        all_candidates = self.get_all_candidates(entity_id, spreadsheet_id, sheet_name)
+        return [c for c in all_candidates if len(c) > 5 and c[5] == status]

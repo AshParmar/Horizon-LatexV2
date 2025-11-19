@@ -1,0 +1,56 @@
+{
+  "name": "Alice Johnson",
+  "email": "alice.johnson@example.com",
+  "phone": "5551112222",
+  "skills": [
+    "Aws",
+    "Docker",
+    "Python",
+    "React"
+  ],
+  "education": [],
+  "experience": [
+    {
+      "title": "Senior Software Engineer at TechCorp",
+      "company": "",
+      "duration": ""
+    }
+  ],
+  "summary": "Professional with 1 relevant experience entries",
+  "enriched_skills": [
+    "Pandas",
+    "CloudFormation",
+    "React Router",
+    "Leadership",
+    "Kubernetes",
+    "EC2",
+    "S3",
+    "Lambda",
+    "Pytest",
+    "Code Review",
+    "Container Orchestration",
+    "Redux",
+    "FastAPI",
+    "Django",
+    "JSX",
+    "Mentoring",
+    "NumPy",
+    "Docker Compose",
+    "Hooks",
+    "RDS"
+  ],
+  "vector_text": "Name: Alice Johnson. Summary: Professional with 1 relevant experience entries. Skills: Pandas, Python, CloudFormation, React Router, Leadership, Kubernetes, EC2, S3, Lambda, Pytest, Code Review, Container Orchestration, Redux, FastAPI, Django, Docker, JSX, Mentoring, NumPy, Docker Compose, Hooks, Aws, React, RDS. Experience: Senior Software Engineer at TechCorp",
+  "metadata": {
+    "extracted_at": "2025-11-18T06:22:38.738475",
+    "source": "resume_extractor",
+    "enriched_at": "2025-11-18T06:22:54.093801",
+    "enrichment_sources": [
+      "llm"
+    ],
+    "finalized_at": "2025-11-18T06:22:54.093801",
+    "ready_for_scoring": true,
+    "source_email": "mock_email_1",
+    "received_at": "2025-11-18T06:22:38.738475",
+    "sender": "alice.johnson@example.com"
+  }
+}

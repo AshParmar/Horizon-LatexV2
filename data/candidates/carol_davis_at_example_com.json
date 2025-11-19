@@ -1,0 +1,50 @@
+{
+  "name": "Carol Davis",
+  "email": "carol.davis@example.com",
+  "phone": "5555556666",
+  "skills": [
+    "Machine Learning",
+    "Tensorflow",
+    "Pytorch",
+    "Python"
+  ],
+  "education": [
+    {
+      "degree": "PhD Computer Science, Berkeley, 2020",
+      "institution": "",
+      "year": "20"
+    }
+  ],
+  "experience": [
+    {
+      "title": "ML Engineer at AI Labs",
+      "company": "",
+      "duration": ""
+    }
+  ],
+  "summary": "Professional with 1 relevant experience entries",
+  "enriched_skills": [
+    "Django",
+    "Pandas",
+    "Feature Engineering",
+    "NumPy",
+    "Pytest",
+    "Model Evaluation",
+    "Scikit-learn",
+    "FastAPI"
+  ],
+  "vector_text": "Name: Carol Davis. Summary: Professional with 1 relevant experience entries. Skills: Machine Learning, Django, Pandas, Feature Engineering, Python, Tensorflow, NumPy, Pytest, Model Evaluation, Pytorch, Scikit-learn, FastAPI. Experience: ML Engineer at AI Labs. Education: PhD Computer Science, Berkeley, 2020 (20)",
+  "metadata": {
+    "extracted_at": "2025-11-18T06:23:04.886641",
+    "source": "resume_extractor",
+    "enriched_at": "2025-11-18T06:23:22.924073",
+    "enrichment_sources": [
+      "llm"
+    ],
+    "finalized_at": "2025-11-18T06:23:22.924073",
+    "ready_for_scoring": true,
+    "source_email": "mock_email_3",
+    "received_at": "2025-11-18T06:22:38.738475",
+    "sender": "carol.davis@example.com"
+  }
+}

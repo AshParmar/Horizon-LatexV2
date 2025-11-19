@@ -6,9 +6,12 @@ Load environment variables and application settings
 from pydantic_settings import BaseSettings
 from typing import List
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load .env from project root (parent of backend/)
+env_path = Path(__file__).parent.parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
 
 class Settings(BaseSettings):
@@ -36,6 +39,7 @@ class Settings(BaseSettings):
     # API Keys (TODO: Add your API keys to .env)
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     COMPOSIO_API_KEY: str = os.getenv("COMPOSIO_API_KEY", "")
+    GOOGLE_GEMINI_API_KEY: str = os.getenv("GOOGLE_GEMINI_API_KEY", "")
     
     # Google OAuth (TODO: Configure OAuth credentials)
     GOOGLE_CLIENT_ID: str = os.getenv("GOOGLE_CLIENT_ID", "")
@@ -63,6 +67,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "ignore"  # Ignore extra fields from .env
 
 
 # Global settings instance

@@ -1,0 +1,47 @@
+{
+  "name": "Bob Williams",
+  "email": "bob.williams@example.com",
+  "phone": "5553334444",
+  "skills": [
+    "Go",
+    "Java",
+    "Kubernetes",
+    "Javascript",
+    "Mongodb",
+    "Node.Js"
+  ],
+  "education": [],
+  "experience": [
+    {
+      "title": "Full Stack Developer at StartupCo",
+      "company": "",
+      "duration": ""
+    }
+  ],
+  "summary": "Professional with 1 relevant experience entries",
+  "enriched_skills": [
+    "Agile methodologies",
+    "Problem-solving.",
+    "Docker",
+    "Git",
+    "SQL",
+    "REST APIs",
+    "Communication",
+    "AWS/GCP/Azure",
+    "Microservices"
+  ],
+  "vector_text": "Name: Bob Williams. Summary: Professional with 1 relevant experience entries. Skills: Agile methodologies, Problem-solving., Docker, Go, Git, Java, Kubernetes, Javascript, SQL, REST APIs, Mongodb, Communication, Node.Js, Microservices, AWS/GCP/Azure. Experience: Full Stack Developer at StartupCo",
+  "metadata": {
+    "extracted_at": "2025-11-18T06:22:54.093801",
+    "source": "resume_extractor",
+    "enriched_at": "2025-11-18T06:23:04.883606",
+    "enrichment_sources": [
+      "llm"
+    ],
+    "finalized_at": "2025-11-18T06:23:04.883606",
+    "ready_for_scoring": true,
+    "source_email": "mock_email_2",
+    "received_at": "2025-11-18T06:22:38.738475",
+    "sender": "bob.williams@example.com"
+  }
+}

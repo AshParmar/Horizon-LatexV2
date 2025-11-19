@@ -1,0 +1,65 @@
+{
+  "name": "Ashish Kumar",
+  "email": "ashparmar08@gmail.com",
+  "phone": "7082731899",
+  "skills": [
+    "Git",
+    "Docker",
+    "Jenkins",
+    "Aws",
+    "Flask",
+    "Express",
+    "Pandas",
+    "Go",
+    "Python",
+    "Spring",
+    "Tensorflow",
+    "Ci/Cd",
+    "React",
+    "Sql",
+    "Postgresql",
+    "Scikit-Learn",
+    "Pytorch"
+  ],
+  "education": [
+    {
+      "degree": "B.TechinA.I&DataScience\u2014GuruGobindSinghIndraprasthaUniversity,NewDelhi Expected2027",
+      "institution": "CurrentCGPA:8.0/10",
+      "year": ""
+    }
+  ],
+  "experience": [
+    {
+      "title": "AIEngineerIntern\u2014SpiritualData,Allentown(Remote) Jun2025\u2013Sep2025",
+      "company": "",
+      "duration": ""
+    }
+  ],
+  "summary": "Professional with 1 relevant experience entries",
+  "enriched_skills": [
+    "Data Visualization",
+    "Communication",
+    "Data Analysis",
+    "Deep Learning",
+    "Software Development",
+    "Debugging",
+    "Cloud Computing",
+    "Testing",
+    "Machine Learning",
+    "Problem Solving"
+  ],
+  "vector_text": "Name: Ashish Kumar. Summary: Professional with 1 relevant experience entries. Skills: Go, Spring, Software Development, Debugging, Postgresql, Pytorch, Data Visualization, Aws, Communication, Ci/Cd, Cloud Computing, Scikit-Learn, Machine Learning, Problem Solving, Git, Docker, Jenkins, Deep Learning, Pandas, Tensorflow, React, Sql, Flask, Express, Data Analysis, Python, Testing. Experience: AIEngineerIntern\u2014SpiritualData,Allentown(Remote) Jun2025\u2013Sep2025. Education: B.TechinA.I&DataScience\u2014GuruGobindSinghIndraprasthaUniversity,NewDelhi Expected2027 from CurrentCGPA:8.0/10",
+  "metadata": {
+    "extracted_at": "2025-11-18T08:48:13.601022",
+    "source": "resume_extractor",
+    "enriched_at": "2025-11-18T08:48:16.510994",
+    "enrichment_sources": [
+      "llm"
+    ],
+    "finalized_at": "2025-11-18T08:48:16.510994",
+    "ready_for_scoring": true,
+    "source_email": null,
+    "received_at": null,
+    "sender": "Ashish Parmar <ashparmar08@gmail.com>"
+  }
+}

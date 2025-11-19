@@ -62,6 +62,14 @@ class TaskScheduler:
         TODO: Add your cron jobs
         """
         
+        # Gmail: Check for new resume emails every 15 minutes
+        self.scheduler.add_job(
+            self.check_new_resume_emails,
+            IntervalTrigger(minutes=15),
+            id="check_new_resume_emails",
+            name="Check Gmail for New Resumes"
+        )
+        
         # Example: Run every day at 9 AM
         self.scheduler.add_job(
             self.daily_resume_enrichment,
@@ -98,6 +106,64 @@ class TaskScheduler:
     
     
     # ==================== SCHEDULED TASKS ====================
+    
+    async def check_new_resume_emails(self):
+        """
+        Periodic job: Check Gmail for new resume emails
+        
+        This runs automatically every 15 minutes to:
+        - Check all connected users' Gmail inboxes
+        - Download new resume attachments
+        - Process through extraction & enrichment pipeline
+        - Save candidates ready for scoring
+        
+        Schedule: Every 15 minutes
+        
+        Note: In production, you'd fetch all users with gmail_connected=True
+        from the database and process each one.
+        """
+        logger.info("Checking Gmail for new resume emails...")
+        try:
+            from modules.resume.gmail_monitor import GmailMonitor
+            
+            # TODO: In production, fetch from database:
+            # users = db.query(User).filter(User.gmail_connected == True).all()
+            # For now, using example users
+            
+            connected_users = [
+                {"user_id": "test_user_001", "name": "Test User"}
+                # Add more users here or fetch from database
+            ]
+            
+            total_candidates = 0
+            
+            for user in connected_users:
+                try:
+                    user_id = user["user_id"]
+                    logger.info(f"Checking Gmail for user: {user_id}")
+                    
+                    monitor = GmailMonitor(data_dir=f"./data/users/{user_id}")
+                    candidates = monitor.process_new_emails(
+                        user_id=user_id,
+                        use_mock=False
+                    )
+                    
+                    if candidates:
+                        logger.info(f"Found {len(candidates)} new resume(s) for {user_id}")
+                        total_candidates += len(candidates)
+                        
+                        # TODO: Notify user about new candidates
+                        # await notify_user(user_id, candidates)
+                    
+                except Exception as e:
+                    logger.error(f"Error processing Gmail for {user['user_id']}: {e}")
+                    continue
+            
+            logger.info(f"Gmail check completed. Total new candidates: {total_candidates}")
+            
+        except Exception as e:
+            logger.error(f"Error in check_new_resume_emails: {e}")
+    
     
     async def daily_resume_enrichment(self):
         """

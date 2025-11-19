@@ -1,0 +1,46 @@
+{
+  "name": "Alice Johnson",
+  "email": "alice.johnson@example.com",
+  "phone": "5551112222",
+  "skills": [
+    "Python",
+    "Docker",
+    "React",
+    "Aws"
+  ],
+  "education": [],
+  "experience": [
+    {
+      "title": "Senior Software Engineer at TechCorp",
+      "company": "",
+      "duration": ""
+    }
+  ],
+  "summary": "Professional with 1 relevant experience entries",
+  "enriched_skills": [
+    "Problem-solving",
+    "SQL",
+    "System Design",
+    "CI/CD",
+    "REST APIs",
+    "Agile Methodologies",
+    "JavaScript",
+    "Git",
+    "Teamwork",
+    "Communication"
+  ],
+  "vector_text": "Name: Alice Johnson. Summary: Professional with 1 relevant experience entries. Skills: Problem-solving, SQL, System Design, Python, CI/CD, Docker, REST APIs, Aws, Agile Methodologies, Git, JavaScript, React, Teamwork, Communication. Experience: Senior Software Engineer at TechCorp",
+  "metadata": {
+    "extracted_at": "2025-11-18T06:58:11.825316",
+    "source": "resume_extractor",
+    "enriched_at": "2025-11-18T06:58:14.404961",
+    "enrichment_sources": [
+      "llm"
+    ],
+    "finalized_at": "2025-11-18T06:58:14.404961",
+    "ready_for_scoring": true,
+    "source_email": "mock_email_1",
+    "received_at": "2025-11-18T06:58:11.825316",
+    "sender": "alice.johnson@example.com"
+  }
+}

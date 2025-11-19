@@ -1,0 +1,15 @@
+2025-11-18 11:47:58,433 - core.logger - INFO - Logging configured successfully
+2025-11-18 11:47:58,457 - tasks.scheduler - INFO - Starting task scheduler...
+2025-11-18 11:47:58,457 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-18 11:47:58,458 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-18 11:47:58,458 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-18 11:47:58,459 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-18 11:47:58,459 - tasks.scheduler - INFO - Registered 4 scheduled tasks
+2025-11-18 11:47:58,461 - apscheduler.scheduler - INFO - Added job "Daily Resume Enrichment" to job store "default"
+2025-11-18 11:47:58,461 - apscheduler.scheduler - INFO - Added job "Check Pending Interviews" to job store "default"
+2025-11-18 11:47:58,461 - apscheduler.scheduler - INFO - Added job "Weekly Analytics Report" to job store "default"
+2025-11-18 11:47:58,462 - apscheduler.scheduler - INFO - Added job "Sync Data to Google Sheets" to job store "default"
+2025-11-18 11:47:58,462 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-18 11:47:58,462 - tasks.scheduler - INFO - Task scheduler started successfully
+2025-11-18 11:48:10,841 - tasks.scheduler - INFO - Shutting down task scheduler...
+2025-11-18 11:48:10,841 - apscheduler.scheduler - INFO - Scheduler has been shut down
